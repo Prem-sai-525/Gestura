@@ -36,11 +36,11 @@ Play	🤘 -[0,1,0,0,1] (Index + Pinky)	Press space
 
 Pause	🤟 -[1,1,0,0,1] (Thumb + Index + Pinky)	Press space
 
-Forward	-[1,0,0,0,0] (Thumb only) on right side	Press right arrow
+Forward	-[1,0,0,0,0] (Thumb only to right + remaining fingers folded) on right side	Press right arrow
 
-Backward	-[1,0,0,0,0] (Thumb only) on left side	Press left arrow
+Backward	-[1,0,0,0,0] (Thumb only to left + remaining fingers folded) on left side	Press left arrow
 
-Volume Up	 -[1,1,1,0,1] (Vulcan salute)	Press volumeup
+Volume Up	 -[1,1,1,0,1] (ring finger folded + other fingers open)	Press volumeup
 
 Volume Down	🤞 -[0,1,1,0,0] (Index + Middle)	Press volumedown
 
