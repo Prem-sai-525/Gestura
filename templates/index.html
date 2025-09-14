@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gesture Control</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: #f4f4f4;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      #status {
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      button {
+        padding: 12px 30px;
+        font-size: 16px;
+        margin: 8px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        width: 220px;
+      }
+      button.start {
+        background-color: #4caf50;
+        color: white;
+      }
+      button.stop {
+        background-color: #f44336;
+        color: white;
+      }
+      button:hover {
+        opacity: 0.8;
+      }
+      #instructions {
+        margin-top: 30px;
+        text-align: left;
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+      }
+      #instructions h2 {
+        margin-top: 0;
+      }
+      #instructions ul {
+        padding-left: 20px;
+      }
+      #instructions li {
+        margin-bottom: 12px;
+        font-size: 16px;
+      }
+      #note {
+        margin-top: 15px;
+        padding: 10px;
+        background: #e8f5e9;
+        color: #2e7d32;
+        border-radius: 8px;
+        font-size: 14px;
+        text-align: center;
+      }
+    </style>
+    <script>
+      function toggleGesture(on) {
+        fetch(on ? "/start" : "/stop").then(updateStatus);
+      }
+
+      function updateStatus() {
+        fetch("/status")
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("status").innerText =
+              "Status: " + data.status;
+            document.getElementById("status").style.color =
+              data.status === "Running" ? "green" : "red";
+          });
+      }
+
+      // Stop demo.py automatically when page closes
+      window.addEventListener("beforeunload", function () {
+        navigator.sendBeacon("/stop");
+      });
+
+      setInterval(updateStatus, 1000);
+    </script>
+  </head>
+  <body>
+    <h1>Gesture Control System</h1>
+    <div id="status" style="color: red">Status: Stopped</div>
+    <button class="start" onclick="toggleGesture(true)">
+      Start Gesture Detection
+    </button>
+    <button class="stop" onclick="toggleGesture(false)">
+      Stop Gesture Detection
+    </button>
+
+    <div id="instructions">
+      <h2>How to Use Gestures:</h2>
+      <ul>
+        <li>Play: Index + Pinky up, other fingers closed</li>
+        <li>Pause: Thumb + Index + Pinky up, others closed</li>
+        <li>Forward: Thumb pointing right, others closed</li>
+        <li>Backward: Thumb pointing left, others closed</li>
+        <li>Volume Up: Thumb + Index + Middle + Pinky up, ring closed</li>
+        <li>Volume Down: Index + Middle up, others closed</li>
+        <li>Mute/Unmute: Thumb + Pinky wave, others closed</li>
+      </ul>
+      <div id="note">
+        Note: Play any video to use Forward & Backward gestures. Other gestures
+        work even if no video is playing.
+      </div>
+    </div>
+  </body>
+</html>
